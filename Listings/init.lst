@@ -1,0 +1,84 @@
+C51 COMPILER V9.60.0.0   INIT                                                              08/26/2022 16:08:11 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE INIT
+OBJECT MODULE PLACED IN .\Objects\init.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE USER\init.c OMF2 OPTIMIZE(8,SPEED) BROWSE INCDIR(.\LIB;.\USER;.\CORE;.\HARD
+                    -WARE) DEBUG PRINT(.\Listings\init.lst) TABS(2) OBJECT(.\Objects\init.obj)
+
+line level    source
+
+   1          #include  "config.h"
+   2          //#include "STC8G.h"
+   3          #include "GPIO.h"
+   4          
+   5          void  GPIO_init()
+   6          {
+   7   1        GPIO_InitTypeDef  GPIO_InitStructure;   //结构定义
+   8   1        GPIO_InitStructure.Pin  = GPIO_Pin_5;   //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7
+   9   1        GPIO_InitStructure.Mode = GPIO_PullUp;    //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,GPIO_
+             -OUT_PP
+  10   1        GPIO_Inilize(GPIO_P5,&GPIO_InitStructure);  //初始化
+  11   1        
+  12   1        GPIO_InitStructure.Pin  = GPIO_Pin_4;   //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7
+  13   1        GPIO_InitStructure.Mode = GPIO_OUT_PP;    //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,GPIO_
+             -OUT_PP
+  14   1        GPIO_Inilize(GPIO_P5,&GPIO_InitStructure);  //初始化
+  15   1        
+  16   1        GPIO_InitStructure.Pin  = GPIO_Pin_2;   //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7
+  17   1        GPIO_InitStructure.Mode = GPIO_OUT_PP;    //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,GPIO_
+             -OUT_PP
+  18   1        GPIO_Inilize(GPIO_P3,&GPIO_InitStructure);  //初始化
+  19   1        
+  20   1        GPIO_InitStructure.Pin  = GPIO_Pin_3;   //指定要初始化的IO, GPIO_Pin_0 ~ GPIO_Pin_7
+  21   1        GPIO_InitStructure.Mode = GPIO_OUT_PP;    //指定IO的输入或输出方式,GPIO_PullUp,GPIO_HighZ,GPIO_OUT_OD,GPIO_
+             -OUT_PP
+  22   1        GPIO_Inilize(GPIO_P3,&GPIO_InitStructure);  //初始化
+  23   1      }
+  24          /*
+  25          void IIC_init()
+  26          {
+  27          
+  28            I2C_InitTypeDef   I2C_InitStructure;
+  29            I2C_InitStructure.I2C_Mode      = I2C_Mode_Master;  //主从选择   I2C_Mode_Master, I2C_Mode_Slave
+  30            I2C_InitStructure.I2C_Enable    = ENABLE;           //I2C功能使能,   ENABLE, DISABLE
+  31            I2C_InitStructure.I2C_MS_WDTA   = DISABLE;          //主机使能自动发送,  ENABLE, DISABLE
+  32            I2C_InitStructure.I2C_MS_Interrupt = DISABLE;       //使能主机模式中断,  ENABLE, DISABLE
+  33            I2C_InitStructure.I2C_Speed     = 10;               //总线速度=Fosc/2/(Speed*2+4),      0~63
+  34            I2C_InitStructure.I2C_IoUse     = I2C_P33_P32;      //IO口切换   I2C_P14_P15, I2C_P24_P25, I2C_P33_P32
+  35          
+  36            I2C_Init(&I2C_InitStructure);
+  37          }*/
+  38          
+  39          void Timer0Init(void)   //100??@24.000MHz
+  40          {
+  41   1      //  AUXR &= 0x7F;   //?????12T??
+  42   1      //  TMOD &= 0xF0;   //???????
+  43   1        TMOD = 0x01;
+  44   1        TL0 = 0x00;   //???????
+  45   1        TH0 = 0x00;   //???????
+  46   1        TF0 = 0;    //??TF0??
+  47   1        TR0 = 0;    //???0????
+  48   1      }
+  49          
+  50          
+C51 COMPILER V9.60.0.0   INIT                                                              08/26/2022 16:08:11 PAGE 2   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     80    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

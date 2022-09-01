@@ -1,0 +1,76 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              08/26/2022 16:21:47 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE USER\main.c OMF2 OPTIMIZE(8,SPEED) BROWSE INCDIR(.\LIB;.\USER;.\CORE;.\HARD
+                    -WARE) DEBUG PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include "config.h"
+   2          #include "delay.h"
+   3          #include "init.h"
+   4          #include "oled.h"
+   5          #include "HCSR40.h"
+   6          #include <stdio.h>
+   7          
+   8          #define TRIG  P54 //pp
+   9          #define ECHO P55  //pullin
+  10          #define SDA P33 //pp
+  11          #define SCL P32 //pp
+  12          
+  13          void main()
+  14          {
+  15   1        char distance_array[15];
+  16   1        double distance;
+  17   1        EA = 1;
+  18   1        
+  19   1        GPIO_init();
+  20   1        
+  21   1        OLED_Init();
+  22   1        OLED_ColorTurn(0);
+  23   1        OLED_DisplayTurn(0);
+  24   1        //START
+  25   1        delay_ms(100);
+  26   1        OLED_Clear();
+  27   1        OLED_ShowString(5,5,"Loading...",16);
+  28   1        delay_ms(200);
+  29   1        OLED_Clear();
+  30   1        while(1)
+  31   1        {
+  32   2          OLED_ShowString(10,5,"Distance:",16);
+  33   2          HCSR40_SEND();
+  34   2          while(ECHO==0);
+  35   2          StartTimer();
+  36   2          while(ECHO==1);
+  37   2          StopTimer();
+  38   2          
+  39   2          distance=GetDistance();
+  40   2          //OLED_ShowString(20,5,&distance,16);
+  41   2          //char distance_array[(sizeof(distance)+5)];
+  42   2          sprintf(distance_array,"%.4f",distance);
+  43   2          OLED_ShowString(5,5,distance_array,16);
+  44   2          delay_ms(200);
+  45   2        }
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    141    ----
+   CONSTANT SIZE    =     26    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      19
+C51 COMPILER V9.60.0.0   MAIN                                                              08/26/2022 16:21:47 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

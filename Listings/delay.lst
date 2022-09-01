@@ -1,0 +1,89 @@
+C51 COMPILER V9.60.0.0   DELAY                                                             08/26/2022 16:08:10 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE DELAY
+OBJECT MODULE PLACED IN .\Objects\delay.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE LIB\delay.c OMF2 OPTIMIZE(8,SPEED) BROWSE INCDIR(.\LIB;.\USER;.\CORE;.\HARD
+                    -WARE) DEBUG PRINT(.\Listings\delay.lst) TABS(2) OBJECT(.\Objects\delay.obj)
+
+line level    source
+
+   1          /***************  功能说明  ****************
+   2          
+   3          本文件为STC8系列的延时程序,用户几乎可以不修改这个程序.
+   4          
+   5          ******************************************/
+   6          
+   7          #include  "delay.h"
+   8          
+   9          //========================================================================
+  10          // 函数: void delay_ms(unsigned char ms)
+  11          // 描述: 延时函数。
+  12          // 参数: ms,要延时的ms数, 这里只支持1~255ms. 自动适应主时钟.
+  13          // 返回: none.
+  14          // 版本: VER1.0
+  15          // 日期: 2021-3-9
+  16          // 备注: 
+  17          //========================================================================
+  18          void delay_ms(unsigned char ms)
+  19          {
+  20   1        unsigned int i;
+  21   1        do{
+  22   2          i = MAIN_Fosc / 10000;
+  23   2          while(--i);
+  24   2        }while(--ms);
+  25   1      }/*
+  26          void delay_us(unsigned char us) //@11.0592MHz
+  27          { 
+  28            unsigned char n=0;
+  29            for(n=0;n<us;n++){
+  30            unsigned char i;
+  31          
+  32            _nop_();
+  33            _nop_();
+  34            i = 1;
+  35            while (--i);
+  36          }*/
+  37            /*
+  38          void delay_us(unsigned char us) //@12MHz
+  39          { 
+  40            unsigned char n=0;
+  41            for(n=0;n<us;n++){
+  42          
+  43            unsigned char i;
+  44            i = 2;
+  45            while (--i);
+  46          
+  47          }
+  48          }
+  49          */
+  50          void delay_us(unsigned char us)   //@24.000MHz
+  51          {
+  52   1        unsigned char n=0;
+  53   1        for(n=0;n<us;n++){
+  54   2        unsigned char i;
+C51 COMPILER V9.60.0.0   DELAY                                                             08/26/2022 16:08:10 PAGE 2   
+
+  55   2      
+  56   2        i = 6;
+  57   2        while (--i);}
+  58   1      }
+  59          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     33    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
